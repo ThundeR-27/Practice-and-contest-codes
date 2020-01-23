@@ -1,0 +1,63 @@
+package Practice;
+import java.io.*;
+import java.util.*;
+public class ProductOf3 {
+
+	public static void main(String[] args)throws IOException {
+		BufferedReader ob=new BufferedReader(new InputStreamReader(System.in));
+		StringBuffer sb=new StringBuffer();
+		int test=Integer.parseInt(ob.readLine());
+		while(test-->0) {
+			int n=Integer.parseInt(ob.readLine());
+			ArrayList<Integer> a=new ArrayList<Integer>(5);
+			a=div(n);
+			Collections.sort(a);
+			int len=a.size();int mark=0;
+			if(len<=2) {
+				sb.append("NO\n");
+				continue;
+			}
+			else {
+				int x=a.get(1);
+				n=n/x;
+				int y=0;
+				int i=2;
+				while(i<len) {
+					y=a.get(i);
+					if(n%y==0) {
+						mark++;
+						break;
+					}
+					i++;
+				}
+				if(mark>0) {
+					n=n/y;
+				}
+				if(n>1 && n!=x && n!=y) {
+					sb.append("YES\n");
+					sb.append(x+" "+y+" "+n+"\n");
+				}
+				else {
+					sb.append("NO\n");
+				}
+			}
+		}
+		System.out.println(sb);
+		
+	}
+	static ArrayList<Integer> div(int n) {
+		ArrayList<Integer> a=new ArrayList<Integer>(n); 
+		for (int i=1; i<=Math.sqrt(n); i++) { 
+            if (n%i==0) { 
+                if (n/i == i) 
+                	a.add(i);
+                else {
+                	a.add(i);
+                	a.add(n/i);
+                }
+            } 
+        }
+		return a;
+	}
+
+}
